@@ -68,10 +68,12 @@ const CartProvider: React.FC = ({ children }) => {
   const increment = useCallback(
     async id => {
       // TODO INCREMENTS A PRODUCT QUANTITY IN THE CART
+      // eslint-disable-next-line array-callback-return
       const productFind = products.find(productItem => productItem.id === id);
       if (productFind) {
         productFind.quantity += 1;
       }
+
       await AsyncStorage.setItem(
         '@GoMarketplace:product',
         JSON.stringify(products),
@@ -87,6 +89,7 @@ const CartProvider: React.FC = ({ children }) => {
       if (productFind) {
         productFind.quantity -= 1;
       }
+
       await AsyncStorage.setItem(
         '@GoMarketplace:product',
         JSON.stringify(products),
