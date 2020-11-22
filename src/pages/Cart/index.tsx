@@ -57,24 +57,25 @@ const Cart: React.FC = () => {
   const cartTotal = useMemo(() => {
     // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
 
-    let sumProductValue = 0;
-    // eslint-disable-next-line array-callback-return
-    products.map(product => {
-      sumProductValue += product.price * product.quantity;
-    });
+    const sumProductsValue = products.reduce((accumulator, productItem) => {
+      const productsTotal = productItem.quantity * productItem.price;
 
-    return formatValue(sumProductValue);
+      return accumulator + productsTotal;
+    }, 0);
+
+    return formatValue(sumProductsValue);
   }, [products]);
 
   const totalItensInCart = useMemo(() => {
     // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
 
-    let sumProducts = 0;
-    products.forEach(() => {
-      sumProducts += 1;
-    });
+    const sumProductsValue = products.reduce((accumulator, productItem) => {
+      const productsTotal = productItem.quantity;
 
-    return sumProducts;
+      return accumulator + productsTotal;
+    }, 0);
+
+    return sumProductsValue;
   }, [products]);
 
   return (
