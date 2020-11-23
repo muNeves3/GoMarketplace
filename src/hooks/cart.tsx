@@ -68,15 +68,19 @@ const CartProvider: React.FC = ({ children }) => {
   const increment = useCallback(
     async id => {
       // TODO INCREMENTS A PRODUCT QUANTITY IN THE CART
-      // eslint-disable-next-line array-callback-return
-      const productFind = products.find(productItem => productItem.id === id);
-      if (productFind) {
-        productFind.quantity += 1;
-      }
+      const incrementedProducts =
+        // eslint-disable-next-line no-return-assign
+        products.map(product =>
+          product.id === id
+            ? { ...product, quantity: product.quantity += 1 }
+            : product,
+        );
+
+      setProducts(incrementedProducts);
 
       await AsyncStorage.setItem(
         '@GoMarketplace:product',
-        JSON.stringify(products),
+        JSON.stringify(incrementedProducts),
       );
     },
     [products],
@@ -85,14 +89,17 @@ const CartProvider: React.FC = ({ children }) => {
   const decrement = useCallback(
     async id => {
       // TODO DECREMENTS A PRODUCT QUANTITY IN THE CART
-      const productFind = products.find(productItem => productItem.id === id);
-      if (productFind) {
-        productFind.quantity -= 1;
-      }
+      const decrementedProducts = products.map(product =>
+        product.id === id
+          ? { ...product, quantity: product.quantity -= 1 }
+          : product,
+      );
+
+      setProducts(decrementedProducts);
 
       await AsyncStorage.setItem(
         '@GoMarketplace:product',
-        JSON.stringify(products),
+        JSON.stringify(decrementedProducts),
       );
     },
     [products],

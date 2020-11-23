@@ -40,10 +40,10 @@ const Cart: React.FC = () => {
 
   function handleIncrement(id: string): void {
     // TODO
-    const productFind = products.find(productItem => productItem.id === id);
-    if (productFind) {
-      increment(id);
-    }
+    // const productFind = products.find(productItem => productItem.id === id);
+    // if (productFind) {
+    increment(id);
+    // }
   }
 
   function handleDecrement(id: string): void {
